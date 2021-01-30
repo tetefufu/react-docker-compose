@@ -23,7 +23,7 @@ spec:
           imagePullPolicy: Always
           resources: {}
           ports:
-            - containerPort: 8080
+            - containerPort: 3000
 status: {}
 
 ---
@@ -35,7 +35,7 @@ metadata:
     run: react-webapp
 spec:
   ports:
-    - port: 8080
+    - port: 3000
       protocol: TCP
   selector:
     app: react-webapp
