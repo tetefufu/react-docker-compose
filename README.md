@@ -78,3 +78,37 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 https://main.d1mekqp4fb62s0.amplifyapp.com/
 
 Built with AWS amplify (choose Web App, Git, Confirm...)
+
+### GKE
+
+```
+# publish to gke
+
+git clone https://github.com/tetefufu/react-docker-compose.git
+docker build -t gcr.io/sixth-edition-102118/react-docker-compose:v2 .
+gcloud services enable containerregistry.googleapis.com
+gcloud auth configure-docker
+docker push gcr.io/sixth-edition-102118/react-docker-compose:v2
+gcloud container clusters create react-cluster --zone us-central1-c
+gcloud container clusters get-credentials react-cluster --zone us-central1-c
+kubectl create -f gke.yaml
+
+# teardown
+
+kubectl delete deployment --all
+kubectl delete service --all
+
+# test
+
+git clone https://github.com/tetefufu/react-docker-compose.git
+docker run --rm -p 8080:8080 gcr.io/sixth-edition-102118/react-docker-compose:v2 # runs the image in a container at http://localhost:8080/
+docker run --rm -p 8080:8080 react-docker-compose # runs the image in a container at http://localhost:8080/
+
+docker ps # show running containers ids
+docker container ls # show running containers ids
+docker stop 0ba... # stop runnin by container id
+
+# refs
+https://github.com/MatthewCYLau/react-gke
+
+```
