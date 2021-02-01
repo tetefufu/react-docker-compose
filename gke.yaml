@@ -35,8 +35,7 @@ metadata:
   name: react-docker-compose-v2-service
 spec:
   ports:
-    - nodePort: 30896
-      port: 80
+    - port: 80
       protocol: TCP
       targetPort: 8080
   selector:
