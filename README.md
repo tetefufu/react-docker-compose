@@ -92,6 +92,7 @@ docker push gcr.io/sixth-edition-102118/react-docker-compose:v2
 gcloud container clusters create react-cluster --zone us-central1-c
 gcloud container clusters get-credentials react-cluster --zone us-central1-c
 kubectl create -f gke.yaml
+kubectl get service # lists services. Find app URL in EXTERNAL-IP
 
 # teardown
 
@@ -110,5 +111,6 @@ docker stop 0ba... # stop runnin by container id
 
 # refs
 https://github.com/MatthewCYLau/react-gke
-
+kubectl create deployment gcp-k8-react-cluster --image=gcr.io/sixth-edition-102118/gcp-k8-react-app:v1 # creates a deployment
+kubectl expose deployment gcp-k8-react-cluster --name=gcp-k8-react-app-service --type=LoadBalancer --port 80 --target-port 8080 # exposes the deployment via a load balancer
 ```
